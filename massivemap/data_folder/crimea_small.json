@@ -1,0 +1,15 @@
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [45.279517,34.141646]
+      ]
+    ]
+  },
+  "properties": {
+    "type": "boundary",
+    "wikipedia": "uk:Автономна_Республіка_Крим"
+  }
+}

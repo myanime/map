@@ -1,0 +1,38 @@
+{% load leaflet_tags %}
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {% leaflet_js %}
+    {% leaflet_css %}
+  </head>
+  <body>
+    <h1>Test Map</h1>
+
+    <!-- This is Django stuff, it loads the leaflet/openstreetmap -->
+    {% leaflet_map "main" callback="main_map_init" %}
+
+    <!-- My test Div -->
+    <div id="ryanstestdiv">Ryans Point</div>
+
+    <script type="text/javascript">
+      //This is the main Leaflet function, we can make changes to map display type, etc.
+
+      function main_map_init(map, options) {
+        L.map('mapid').setView([45.254146, 34.195522], 7);
+
+        var dataurl = '/map/data.geojson';
+
+        $.getJSON(dataurl, function(data){
+
+          L.geoJson(data).addTo(map);
+
+          // My test stuff
+          var tpoint = data.features[44].geometry.coordinates[0]
+          console.log(tpoint);
+          $('#ryanstestdiv').html(tpoint)
+        });
+      };
+
+    </script>
+  </body>
+</html>

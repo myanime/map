@@ -1,0 +1,41 @@
+{% extends 'base/base_fancy.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<style>
+       #mapid {
+       height: 50pc;
+       width: 60pc;
+       }
+</style>
+<div id="ryantest"></div>
+    <div id="mapid"></div>
+
+<script type="text/javascript">
+  // initialize the map, uses mapbox - this might be interesting, you can design the gis
+  // and display it on your site
+
+  var mymap = L.map('mapid').setView([45.254146, 34.195522], 7);
+  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token={ryans_token}',
+                {ryans_token: "pk.eyJ1IjoibXlhbmltZSIsImEiOiJjajA1ZjA2bWwwMGJ1MzNueXdlMTR0eDQ0In0.nKBQW_kjp-tlBJG07PVtXg"}
+                ).addTo(mymap);
+
+  //This is pulling data from the database. We could set up forms to add polygons, points to the DB
+
+  // Makes a request to the URL /map/data.geojson
+  var dataurl = '/map/data.geojson';
+  $.getJSON(dataurl, function(data){
+  console.log('nigger');
+
+  //Adds the data that gets returned to the map
+  L.geoJson(data).addTo(mymap);
+  });
+
+  //Gets rid of the leaflet add
+  $('#mapid > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div > a').hide()
+
+ </script>
+{% endblock %}
+
+{% block footerscripts %}
+{% endblock %}
