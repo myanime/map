@@ -1,0 +1,4 @@
+apt-get install postgresql
+apt install postgis
+apt-get install python-psycopg2
+apt-get install libpq-dev
