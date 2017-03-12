@@ -12,3 +12,9 @@ class WeatherStation(gismodels.Model):
     def __unicode__(self):
         return self.name
 
+class CityPolygon(gismodels.Model):
+    name = models.CharField(max_length=50)
+    polygon = gismodels.PolygonField()
+    objects = gismodels.GeoManager()
+
+

@@ -11,4 +11,5 @@ def map_plain(request):
     return render(request, 'map/map_plain.html')
 
 def map_fancy(request):
+
     return render(request, 'map/map_fancy.html')

@@ -1,41 +1,89 @@
 {% extends 'base/base_fancy.html' %}
 {% load staticfiles %}
 
-{% block content %}
+{% block map %}
 <style>
        #mapid {
-       height: 50pc;
-       width: 60pc;
+           height: 700px;
+           width: 100%;
+           min-height: 100%;
+           min-width: 100%;
+           display: block;
+           float: right;
+       }
+       @media(max-width: 991px) {
+           #mapid {
+               height: 500px;
+           }
+       }
+
+       @media(max-width: 420px) {
+           #mapid {
+               height: 400px;
+           }
        }
 </style>
-<div id="ryantest"></div>
-    <div id="mapid"></div>
+<div id="mapid"></div>
 
 <script type="text/javascript">
-  // initialize the map, uses mapbox - this might be interesting, you can design the gis
-  // and display it on your site
-
   var mymap = L.map('mapid').setView([45.254146, 34.195522], 7);
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/{z}/{x}/{y}?access_token={ryans_token}',
                 {ryans_token: "pk.eyJ1IjoibXlhbmltZSIsImEiOiJjajA1ZjA2bWwwMGJ1MzNueXdlMTR0eDQ0In0.nKBQW_kjp-tlBJG07PVtXg"}
                 ).addTo(mymap);
 
-  //This is pulling data from the database. We could set up forms to add polygons, points to the DB
-
-  // Makes a request to the URL /map/data.geojson
   var dataurl = '/map/data.geojson';
-  $.getJSON(dataurl, function(data){
-  console.log('nigger');
 
-  //Adds the data that gets returned to the map
-  L.geoJson(data).addTo(mymap);
+  $.getJSON(dataurl, function(data){
+      L.geoJson(data, {
+          style: function(feature) {
+        switch (feature.properties.party) {
+            case 'Republican': return {color: "#ff0000"};
+            case 'Democrat':   return {color: "#0000ff"};
+        }
+    }
+      }).addTo(mymap);
   });
+
+
+  var states = [{
+    "type": "Feature",
+    "properties": {"party": "Republican"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-104.05, 48.99],
+            [-97.22,  48.98],
+            [-96.58,  45.94],
+            [-104.03, 45.94],
+            [-104.05, 48.99]
+        ]]
+    }
+}, {
+    "type": "Feature",
+    "properties": {"party": "Democrat"},
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-109.05, 41.00],
+            [-102.06, 40.99],
+            [-102.03, 36.99],
+            [-109.04, 36.99],
+            [-109.05, 41.00]
+        ]]
+    }
+}];
+
+L.geoJSON(states, {
+    style: function(feature) {
+        switch (feature.properties.party) {
+            case 'Republican': return {color: "#ff0000"};
+            case 'Democrat':   return {color: "#0000ff"};
+        }
+    }
+}).addTo(mymap);
 
   //Gets rid of the leaflet add
   $('#mapid > div.leaflet-control-container > div.leaflet-bottom.leaflet-right > div > a').hide()
 
  </script>
-{% endblock %}
-
-{% block footerscripts %}
 {% endblock %}

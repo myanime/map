@@ -74,21 +74,60 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+    <style>
+        .grey{
+            background-color: white;
+            min-height: 100px;
+        }
+        .grey2{
+            //background-color: purple;
+        }
+        #map_container{
+            height: 50%;
+            width: 50%;
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+        }
+        @media(max-width: 991px){
+        #map_container{
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+            height: 100%;
+            width: 100%;
+        }
+        #pbar2{
+            margin-left: 0px;
+            height: 600px !important;
+        }
+        #pbar{
+            position: fixed;
+            right: 0 !important;
+            left: 0;
+            z-index: 1030;
+        }
+        }
 
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
+
+    </style>
+    <!--Map Grid Section-->
+    <section id="gis_map">
+
+        <div class="container-fluid" style="background-color: white">
             <div class="row">
-                <div class="col-lg-6 text-center">
-                    <div style="margin-top: 150px; margin-left: -60pc" id="custom-left-pane">
-                        <h2>GIS Map</h2>
-                        <hr class="star-primary">
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <div style="margin-top: 0px">
-                    {% block content %}
+                <div class="col-md-6 grey">
+                    <h3>GIS Map</h3>
+                    {% block map_text %}
                     {% endblock %}
+                </div>
+                <div class="col-md-6 grey2" id="map_container">
+                    {% block map %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="pbar" style="margin-left: -20px; margin-right: -20px" class="navbar navbar-default navbar-custom pbar">
+                        <br><br><br><br>
                     </div>
                 </div>
             </div>
@@ -97,34 +136,6 @@
 
 
     <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Kontakte</h3>
-                        <p>3481 Melrose Place
-                            <br>Beverly Hills, CA 90210</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Impressum</h3>
-                        <p><a href="http://www.google.com">Impressum</a>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-below">
             <div class="container">
                 <div class="row">
